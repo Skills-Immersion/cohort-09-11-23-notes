@@ -1,7 +1,7 @@
 /* STUDY GUIDE!! */
 
 
-var thaiMenu = [
+const thaiMenu = [
   {
     name: "Panang Curry",
     priceInCents: 2000,
@@ -14,19 +14,19 @@ var thaiMenu = [
     category: "Appetizer",
     allergens: ["Gluten", "Shellfish"]
   },
-  // {
-  //   name: "Panang Curry",
-  //   priceInCents: 8800,
-  //   category: "Thai",
-  //   allergens: ["Gluten", "Dairy", "Peanuts"]
-  // }
+  {
+    name: "Panang Curry",
+    priceInCents: 8800,
+    category: "Thai",
+    allergens: ["Gluten", "Dairy", "Peanuts"]
+  }
 ]
 
 
 function activateHappyHour(foods){
-  for(var i=0; i<foods.length; i++){
-      var statement = `We are in iteration number ${i+1}`
-      var currentFood = foods[i];
+  for(let i=0; i<foods.length; i++){
+      const statement = `We are in iteration number ${i+1}`
+      const currentFood = foods[i];
       //if the current food's category property is appetizer
       if(currentFood.category === "Appetizer"){
         //set the currentfood items price to be half of what it currently is
@@ -36,3 +36,5 @@ function activateHappyHour(foods){
       console.log(statement)
   }
 }
+
+activateHappyHour(thaiMenu)
