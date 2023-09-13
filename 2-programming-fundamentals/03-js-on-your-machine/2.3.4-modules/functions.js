@@ -17,3 +17,4 @@ function findPlantById(plants, id) {
 
 //export data like this
 module.exports = {greet, findPlantById};
+// module.exports = findPlantById;
