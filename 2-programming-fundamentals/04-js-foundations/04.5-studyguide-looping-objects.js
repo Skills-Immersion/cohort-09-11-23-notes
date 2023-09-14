@@ -65,4 +65,24 @@ function printGameSummarys(tourney){
   return result
 }
 
-console.log(printGameSummarys(tournament1))
+// console.log(printGameSummarys(tournament1))
+
+
+
+
+function addProductToCart(product, cart={}) {
+  const {name, priceInCents, availableSizes} = product;
+  return {
+    "Court Sneaker": {
+      priceInCents,
+      quantity
+    }
+  }
+}
+
+let product = {
+  name: "Court Sneaker",
+  priceInCents: 8800,
+  availableSizes: [ 6, 8, 10, 11, 12 ]
+}
+addProductToCart(product)

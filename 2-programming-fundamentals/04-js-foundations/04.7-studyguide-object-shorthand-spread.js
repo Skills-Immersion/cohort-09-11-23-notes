@@ -34,10 +34,29 @@ const player2 = {
   jerseyNumber: 3,
   teams: ["Hornets", "Clippers", "Rockets", "Suns"]
 }
+const player3 = {
+  firstName: "Chris",
+  lastName: "Paul",
+  points: 1800,
+  jerseyNumber: 3,
+  teams: ["Hornets", "Clippers", "Rockets", "Suns"]
+}
 
 function updatePlayer(teamName, playerObj) {
-	//can't use player.points, or player.jerseyNumber in the answer
+	//can't use player.points, or player.firstName or player.lastName in the answer
+  const {firstName, lastName, points, teams} = playerObj;
+  //add the new team to the teams array
+  teams.push(teamName)
+
+  return {
+    fullName: `${firstName} ${lastName}`,
+    points,
+    teams
+  }
+
 }
+
+// console.log(updatePlayer("Lakers", player1))
 
 
 /* 
@@ -46,7 +65,10 @@ WRITE A FUNCTION NAMED JOINTEAMS() THAT WILL TAKE TWO DIFFERENT PLAYER OBJECTS A
 */
 
 function joinTeams(playerA, playerB) {
-    
+  const {teams:teamsA} = playerA;
+  const {teams:teamsB} = playerB;
+
+  return [...teamsA, ...teamsB]
 }
 
 
