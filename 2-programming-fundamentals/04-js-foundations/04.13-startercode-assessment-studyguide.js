@@ -92,12 +92,47 @@ function addCityToCities(team, cities={}) {
 
 
 
+
 function calculateTotalChampionships(cities={}) {
+  let total = 0;
+  //is there a way to only get values from an object?
+  const values = Object.values(cities);
+  //for each element in the values array do:
+  for(let element of values){
+    total += element.numberOfChampionships
+  }
+  return total;
+}
+
+function calculateTotalChampionships2(cities={}) {
+  let total = 0;
+  for(let key in cities){
+    const valueObj = cities[key];
+    total += valueObj.numberOfChampionships;
+  }
+  return total
 }
 
 
+let cities_usa = {
+  "Los Angeles": {
+    totalNumberOfPlayers: 3,
+    numberOfChampionships: 20,
+    teams: ["Lakers"]
+  },
+  "New York": {
+    totalNumberOfPlayers: 4,
+    numberOfChampionships: 3,
+    teams: ["Knicks", "Nets"]
+  },
+  "San Franscisco": {
+    totalNumberOfPlayers: 3,
+    numberOfChampionships: 5,
+    teams: ["Warriors"]
+  }
+}
 
-
+// console.log(calculateTotalChampionships2(cities_usa))
 
 /*
 
@@ -127,8 +162,27 @@ let cities_usa = {
 
 */
 function printInfo(cities={}) {
-	
+  let paragraph = "";
+	//loop through the cities object
+  for(let cityNameKey in cities){
+    // console.log("key is", cityNameKey);
+    // console.log("value is", cities[cityNameKey])
+    const valueObj = cities[cityNameKey]
+    // console.log(`${cityNameKey} has ${valueObj.numberOfChampionships} championships and the following teams: ${valueObj.teams.join(", ")}`)
+    paragraph += `${cityNameKey} has ${valueObj.numberOfChampionships} championships and the following teams: ${valueObj.teams.join(", ")}\n`
+  }
+  return paragraph
 }
 
 
-// console.log(printInfo(cities_usa))
+// const obj1 = {
+//   color: "blue",
+//   size: "large"
+// }
+
+// for(let key in obj1){
+//   console.log(obj1[key])
+// }
+
+
+console.log(printInfo(cities_usa))
