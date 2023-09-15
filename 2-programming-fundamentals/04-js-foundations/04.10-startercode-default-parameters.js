@@ -2,19 +2,19 @@
 
 
 
-function calculatePriceInDollars(priceInCents) {
+function calculatePriceInDollars(priceInCents=0) {
   return priceInCents / 100;
 }
 
-calculatePriceInDollars(100); //> 1  (Returns 1 because 100 cents = 1 dollar)
-calculatePriceInDollars(250); //> 2.5
-calculatePriceInDollars(); //> NaN -> HOW DO WE FIX THIS?
+// console.log(calculatePriceInDollars(100)); //> 1  (Returns 1 because 100 cents = 1 dollar)
+// console.log(calculatePriceInDollars(250)); //> 2.5
+// console.log(calculatePriceInDollars()) //> NaN -> HOW DO WE FIX THIS?
 
 
 
 // DEFAULT PARAMETERS FOR OBJECTS AND ARRAYS
 // Function definition
-function calculateTotal(products, { discountPercentage, salesTax }) {
+function calculateTotal(products=[], { discountPercentage=0, salesTax=0 }={}) {
   let result = 0;
   for (let i = 0; i < products.length; i++) {
     const { priceInCents, quantity } = products[i];
@@ -42,14 +42,19 @@ const products = [
 ];
 const options = { discountPercentage: 0.1, salesTax: 0.0825 };
 
-// calculateTotal(products, options); //> 8768.25
+// console.log(calculateTotal(products, options)); //> 8768.25
 
 // NOW, IN THE CASE OF THE FUNCTION ABOVE, IMAGINE THAT THERE ARE NO DISCOUNTS, AND YOU JUST WANT TO USE A STANDARD SALES TAX. IN THIS SITUATION, YOU MAY WANT TO JUST CALL THE FUNCTION WITHOUT PASSING ANYTHING IN. 
-// calculateTotal(products); 
+// console.log(calculateTotal(products)); 
 
 
 
 //DEFAULT THE ARRAY TOO FOR THIS FUNCTION CALL
-// calculateTotal(); 
+console.log(calculateTotal());
 
 
+const obj = {
+  color: "blue"
+}
+
+// console.log(obj.age)
