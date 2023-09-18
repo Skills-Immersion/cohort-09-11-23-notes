@@ -9,7 +9,7 @@
 
 .filter() -> loop through the array to create a new array with elements that match a condition.
   -INPUT: CALLBACK FUNCTION
-  -RETURNS: NEW ARRAY WITH MATCHING ELEMENTS
+  -RETURNS: NEW ARRAY WITH MATCHING ELEMENTS or EMPTY ARRAY []
   -CALLBACK FUNCTION DETAILS:
     -CB PARAMETERS: ELEMENT AND INDEX
     -CB RULE: RETURN A CONDITION - the callback function has to return a condition. The .filter() method will create a new array with elements that the condition evaluates true for.
@@ -80,23 +80,109 @@ const employees = [
       state: "New York",
     },
     languages: ["Javascript", "Java", "Python"],
-  },
+  }
 ];
 
+
+
 //find an employee who is named "Larry David"
-function findEmployeeByName(employees, name) {}
+function findEmployeeByName(employees=[], name="") {
+  const foundElement = employees.find((employeeObj, idx)=>{
+    //return a statement that evaluates to a boolean
+    return employeeObj.name === name;
+    // return false;
+  })
+  
+  if(foundElement === undefined) return null;
+  return foundElement;
+}
+
+
+console.log(findEmployeeByName(employees, "rob"))
+
+//EXAMPLE OF FILTER - when you want multiple elements that match
+function findAllEmployeesByName(employees=[], name="") {
+  const foundElement =  employees.filter((employeeObj, idx)=>{
+    //return a statement that evaluates to a boolean
+    return employeeObj.name === name;
+    // return false;
+  })
+  return foundElement;
+}
+
+function findAllEmployeesByName(employees=[], name="") {
+  return employees.filter(employeeObj=>employeeObj.name === name)
+}
+
+/* 
+return employeeObj.name === name; -> lebron james === "Larry David"
+return employeeObj.name === name; -> scooby doo === "Larry David"
+return employeeObj.name === name; -> larry david === "larry david"
+*/
+
+// console.log(findAllEmployeesByName(employees, "Rob"))
 
 //get all the employees who are making over a given amount
-function findHighEarners(employees, amount) {}
+function findHighEarners(employees=[], amount=0) {
+  const result = employees.filter((employeeObj, idx)=>{
+    return employeeObj.salary > amount;
+  })
+  return result;
+}
 
-//give back a new array containing only the company names and city for each employee in the given list
-function findCompanyNamesAndCity(employees) {}
+
+
+
+// console.log(findHighEarners(employees, 100000))
+// console.log(findHighEarners(employees, 150000))
+
 
 //use .some() to check if any employees are from a company with the name "Comedy Central"
-function doesCompanyHaveEmployee(employees, companyName) {}
+function doesCompanyHaveEmployee(employees=[], companyName="") {
+  const result = employees.some((employeeObj, idx)=>{
+    return employeeObj.company.name === companyName
+  })
+  return result;
+}
+
+// console.log(doesCompanyHaveEmployee(employees, "Google"))
+// console.log(doesCompanyHaveEmployee(employees, "Apple"))
+
 
 //use .every() to indicate whether every employee is making over a certain salary
-function areAllEmployeesGettingPaidGivenAmount(employees, amount) {}
+function areAllEmployeesGettingPaidGivenAmount(employees=[], amount=0) {
+  const result = employees.every((employeeObj, idx)=>{
+    return employeeObj.salary > amount;
+  })
+  return result;
+}
+
+// console.log(areAllEmployeesGettingPaidGivenAmount(employees, 50000))
+// console.log(areAllEmployeesGettingPaidGivenAmount(employees, 200000))
+
+
+
+
+//.map() - give back a new array containing only the company names and city for each employee in the given list
+function getOnlyNames(employees=[]){
+  const result = employees.map((employeeObj, idx)=>{
+    //return the transformation
+    return employeeObj.name;
+  })
+  return result;
+}
+
+// console.log(getOnlyNames(employees))
+
+function findCompanyNamesAndCity(employees=[]) {
+  const result = employees.map((employeeObj, idx)=>{
+    //return the transformation
+    return {companyName: employeeObj.company.name, city: employeeObj.company.city}
+  })
+  return result;
+}
+
+// console.log(findCompanyNamesAndCity(employees))
 
 
 
@@ -110,4 +196,39 @@ function areAllEmployeesGettingPaidGivenAmount(employees, amount) {}
 HINT: USE .FILTER() TO GET BACK ONLY THE EMPLOYEES WHO MAKE A GIVEN AMOUNT OR MORE, THEN USE .MAP TO TRANSFORM THAT DATA TO A NEW ARRAY CONTAINING THE COMPANY NAMES AND CITY OF THOSE EMPLOYEES
 */
 
-/* USE FILTER() AND SOME() METHOD TO FIND IF ANY EMPLOYEE FROM A GIVEN STATE HAS A SALARY OF OVER A GIVEN AMOUNT */
+function getNamesOfHighPayingCompanies(employees=[], amount=0){
+  //1. filter through employees to only get employees making over a given amount
+  const highEarners = employees.filter((employeeObj,idx)=>{
+    return employeeObj.salary > amount;
+  })
+
+  //You can also use the findHighEarners function we already made to help us with this instead
+  // const highEarners = findHighEarners(employees, amount)
+  // console.log(highEarners)
+
+  //2. from the filtered data, map it to only the company names;
+  const namesOnly = highEarners.map((employeeObj, inx)=>{
+    return employeeObj.company.name;
+  })
+
+  return namesOnly
+}
+
+console.log(getNamesOfHighPayingCompanies(employees, 100000))
+
+/* METHOD TO FIND IF ANY EMPLOYEE FROM A GIVEN STATE HAS A SALARY OF OVER A GIVEN AMOUNT */
+
+function anybodyFromGivenStateMakingOverGivenAmount(employees=[], stateName="", amount=0){
+  //1 filter to get only employees who work in (given state)
+  const employeesFromState = employees.filter((employeeObj)=>{
+    return employeeObj.company.state === stateName
+  })
+  //2.check if anye employee from the filterd list is making over given amount
+  const result = employeesFromState.some((employeeObj)=>{
+    return employeeObj.salary > amount
+  })
+
+  return result;
+}
+
+console.log(anybodyFromGivenStateMakingOverGivenAmount(employees, "New York", 100000))
