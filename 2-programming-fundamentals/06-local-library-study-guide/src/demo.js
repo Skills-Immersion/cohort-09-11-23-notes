@@ -35,7 +35,9 @@ function findCourseById(courses, id) {
 
 //5. Find student by Id-> given array of students and an id, find the student object that matches the given id
 function findstudentById(students, id) {
-    
+    return students.find((studentObj)=>{
+        return studentObj.id === id;
+    })
 }
 
 //6. Given a list of students, return back the list of students sorted by their first name
@@ -107,11 +109,11 @@ function partitionCoursesByStudentProgress2(courses=[]) {
     return [onPace, notOnPace]
 }
 
-console.log(partitionCoursesByStudentProgress2(courses))
+// console.log(partitionCoursesByStudentProgress2(courses))
 
 /* 
 
-8. getStudentsForCourse - Given a course object, for its course roster, return an array of students that match the courses roster list, and add the onPace property from the roster objects to the student object. 
+8. getStudentsForCourse - Given a course object, for its course roster, and a students array, return an array of students that match the courses roster list, and add the onPace property from the roster objects to the student object. 
 
 let oneCourse = {
     id: 1,
@@ -141,10 +143,83 @@ let oneCourse = {
         }
     ]
 }
+
+[
+    {
+        id: 1,
+        name: {
+            first: "Bugs",
+            last: "Bunny"
+        },
+        onPace: true
+    }, 
+    {
+        id: 3,
+        name: {
+            first: "Mickey",
+            last: "Mouse"
+        },
+        onPace: true
+    },
+    {
+        id: 5,
+        name: {
+            first: "Patrick",
+            last: "Star"
+        },
+        onPace: true
+    }
+
+]
+
 */
 
-function getStudentsForCourse(course, students) {
-    
+function getStudentsForCourse(course={}, students=[]) {
+    //have an array to store teh results in []
+    const result = [];
+    //look at the course's roster
+    const {roster} = course;
+    //go through every element in the roster array and FOREACH element do:
+    roster.forEach((rosterObj)=>{
+        //look at the studentId property
+        const {studentId, onPace} = rosterObj;
+        // const studentId = rosterObj.studentId;
+        // const onPace = rosterObj.onPace;
+
+        //find the studnet in the students array whose id is === studentId
+        const foundStudent = students.find((studentObj)=>{
+            return studentObj.id === studentId;
+        })
+        //add the onPace property to the found student and then push it to the result array
+        foundStudent.onPace = onPace;
+        result.push(foundStudent);
+    })
+    return result;
+}
+
+function getStudentsForCourse2(course={}, students=[]) {
+    //look at the course's roster
+    const {roster} = course;
+    //go through every element in the roster array and FOREACH element do:
+    const result = roster.map((rosterObj)=>{
+        //look at the studentId property
+        const {studentId, onPace} = rosterObj;
+
+        //find the studnet in the students array whose id is === studentId
+        // const foundStudent = students.find((studentObj)=>{
+        //     return studentObj.id === studentId;
+        // })
+        //YOU CAN ALSO USE THE FINDSTUDENTBYID FUNCTION TO HELP HERE
+        const foundStudent = findstudentById(students, studentId);
+        //add the onPace property to the found student
+        foundStudent.onPace = onPace;
+
+        //return the foundStudent so that it gets inserted into result
+        return foundStudent
+        // result.push(foundStudent);
+    })
+
+    return result;
 }
 
 let oneCourse = {
@@ -158,15 +233,7 @@ let oneCourse = {
             onPace: true,
         },
         {
-            studentId: 2,
-            onPace: false,
-        },
-        {
             studentId: 3,
-            onPace: true,
-        },
-        {
-            studentId: 4,
             onPace: true,
         },
         {
@@ -176,7 +243,7 @@ let oneCourse = {
     ],
 };
 
-// console.log(getStudentsForCourse(oneCourse, students))
+// console.log(getStudentsForCourse2(oneCourse, students))
 
 /* 
 9. getTotalNumberOfClassesForStudent- Given a student object and an array of course objects, find the number of times this student object's id appears in the all the courses rosters array
@@ -190,7 +257,46 @@ let student1 = {
     }
 */
 
-function getTotalNumberOfClassesEnrolledIn(student, courses) {
+function getTotalNumberOfClassesEnrolledIn(student={}, courses=[]) {
+    //total = 0
+    let total = 0;
+    //look at students id - id
+    const {id} = student;
+    //look at the courses array. for each element (courseObj) in the courses array do:
+    courses.forEach((courseObj)=>{
+        //look at the roster
+        const {roster} = courseObj;
+        //for each element (rosterObj) in the roster array do:
+        roster.forEach((rosterObj)=>{
+            //look at the studentId of the rosterObj
+            // if the studentId === given students id (id), increment total by 1
+            if(rosterObj.studentId === id){
+                total++
+            }
+        })
+    })
+    
+    // return total
+    return total;
+}
+
+function getTotalNumberOfClassesEnrolledIn2(student={}, courses=[]) {
+    //look at students id - id
+    const {id} = student;
+    //look at the courses array. for each element (courseObj) in the courses array do:
+    let total = courses.reduce((acc, courseObj)=>{
+        //look at the roster
+        const {roster} = courseObj;
+        //for each element (rosterObj) in the roster array do:
+        const filteredResult = roster.filter((rosterObj)=>{
+            return rosterObj.studentId === id
+        })
+        acc += filteredResult.length;
+        return acc;
+    },0)
+    
+    // return total
+    return total;
 }
 
 let student1 = {
@@ -201,7 +307,7 @@ let student1 = {
     },
 };
 
-// console.log(getTotalNumberOfClassesEnrolledIn(student1, courses));
+console.log(getTotalNumberOfClassesEnrolledIn2(student1, courses));
 
 /* 
 10- Given a student object, an array of course objects and an array of authors objects-> give back all the course objects including the instructor information embedded into the course object for the courses the student is enrolled in
