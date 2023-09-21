@@ -417,7 +417,7 @@ const getMostCommonCategories = (courses=[]) => {
     // console.log(lookup)
 };
 
-console.log(getMostCommonCategories(courses));
+// console.log(getMostCommonCategories(courses));
 
 /* 
 13. Get most popular courses- find the top 3 largest courses based on roster size
@@ -431,12 +431,23 @@ Output in this format:
 ]
 */
 
-function getMostPopularCourses(courses) {
-    //find the most pop
-
+function getMostPopularCourses(courses=[]) {
+    //sort the courses by the length of the roster
+    courses.sort((courseObjA, courseObjB)=>{
+        return courseObjB.roster.length - courseObjA.roster.length
+    })
+    
+    const result = courses.slice(0,3).map((courseObj)=>{
+        const {name, roster} = courseObj;
+        return { name, rosterSize: roster.length }
+    })
+    return result;
 }
 
-// console.log(getMostPopularCourses(courses));
+const getMostPopularCourses2 = (courses=[]) =>  courses.sort((courseObjA, courseObjB)=> courseObjB.roster.length - courseObjA.roster.length).slice(0,3).map(({name, roster})=> ({ name, rosterSize: roster.length }))
+
+
+// console.log(getMostPopularCourses2(courses));
 
 /* 
 
@@ -451,12 +462,39 @@ Output in this format:
 
 */
 
-function instructorsOfLargestClasses(courses, instructors) {
-   
+function instructorsOfLargestClasses(courses=[], instructors=[]) {
+   //get the 2 largest classes
+    const topTwoMostPopularCourses = courses.sort((courseObjA, courseObjB)=>{
+        return courseObjB.roster.length - courseObjA.roster.length
+    }).slice(0,2)
+
+    const result = [];
+
+    //for each of the top 2 courses do:
+    topTwoMostPopularCourses.forEach((courseObj)=>{
+        //use the insturctorId of the courseObj to find the instructor
+        const {instructorId, roster} = courseObj;
+        const instructor = instructors.find((instructorObj)=>{
+            return instructorObj.id === instructorId
+        })
+        const obj = { name: `${instructor.name.first} ${instructor.name.last}`, numStudents: roster.length }
+        //you an also use a helper function to join first and last names by giving an instructor
+        // const obj = { name: helperJoinFirstAndLastNames(instructor), numStudents: roster.length }
+
+        //you can also destructure from the instructor the first and last name
+        // const {name:{first,last}} = instructors.find((instructorObj)=>{
+        //     return instructorObj.id === instructorId
+        // })
+        // const obj = { name: `${first} ${last}`, numStudents: roster.length }
+        result.push(obj);
+    })
+
+    return result
+
 }
 
-function helperJoinFirstAndLastNames(first, last) {
-    return `${first} ${last}`;
+function helperJoinFirstAndLastNames(instructor) {
+    return `${instructor.name.first} ${instructor.name.last}`;
 }
 
 // console.log(instructorsOfLargestClasses(courses, instructors));
