@@ -13,6 +13,7 @@ const courses = [
                 studentId: 2,
                 onPace: false
             },
+
             {
                 studentId: 3,
                 onPace: true

@@ -280,6 +280,7 @@ function getTotalNumberOfClassesEnrolledIn(student={}, courses=[]) {
     return total;
 }
 
+
 function getTotalNumberOfClassesEnrolledIn2(student={}, courses=[]) {
     //look at students id - id
     const {id} = student;
@@ -307,27 +308,62 @@ let student1 = {
     },
 };
 
-console.log(getTotalNumberOfClassesEnrolledIn2(student1, courses));
+// console.log(getTotalNumberOfClassesEnrolledIn2(student1, courses));
 
 /* 
-10- Given a student object, an array of course objects and an array of authors objects-> give back all the course objects including the instructor information embedded into the course object for the courses the student is enrolled in
+10- Given a student object, an array of course objects and an array of authors objects-> give back all the course objects including the instructor information embedded into the course object for the courses the student is enrolled in (hint for getBooksPossessedByAccount())
 
 
 
 */
 
-function getCoursesStudentEnrolledIn(student, courses, instructors) {
-    
-}
 
-// console.log(getCoursesStudentEnrolledIn(student1, courses, instructors));
+
+function getCoursesStudentEnrolledIn(student={}, courses=[], instructors=[]) {
+    const result = []
+    //look at the id of the given student - id
+    const {id} = student;
+    //look at each courseObj in courses and foreach courseObj do:
+    courses.forEach((courseObj)=>{
+        const {roster,instructorId} = courseObj;
+        //look at the roster and for each rosterObj do:
+        roster.forEach((rosterObj)=>{
+            //check if the rosterObj.studentId === id. if so push the current courseObj to our result
+            if(rosterObj.studentId === id){
+                //get the author information for this courseObj and add the author info as a key into the course obj
+                const instructor = findInstructorById(instructors, instructorId)
+                // const instructor = instructors.find((instructorObj)=>{
+                //     return instructorObj.id === instructorId
+                // })
+                courseObj.instructor = instructor
+                //puth the courseObj to result
+                result.push(courseObj)
+            }
+        })
+    })
+    
+    return result
+}  
+
+let student3 = {
+    id: 3,
+    name: {
+        first: "Mickey",
+        last: "Mouse",
+    },
+};
+
+// console.log(getCoursesStudentEnrolledIn(student3, courses, instructors));
 
 /*
 11. Get count of courses who have at least on student not onPace- similar to getBooksBorrowedCount(books)
 */
 
 function getCoursesNotOnPaceCount(courses) {
-    
+    // const [,notOnPaceCourses] = partitionCoursesByStudentProgress(courses)
+    const partitionResult = partitionCoursesByStudentProgress(courses)
+    const notOnPaceCourses = partitionResult[1]
+    return notOnPaceCourses.length;
 }
 
 // console.log(getCoursesNotOnPaceCount(courses));
@@ -341,13 +377,48 @@ function getCoursesNotOnPaceCount(courses) {
     { name: "Psychology", count: 2 },
 ]
 
+lookup: {
+   "SWE": 2,
+   "Psychology": 1,
+   "Finance": 1
+}
+
 */
 
-const getMostCommonCategories = (courses) => {
-    
+// let obj = {}
+// let y = "x"
+// obj.x = "hi"
+// obj["x"] = "hi"
+// obj[y] = "hi"
+
+const getMostCommonCategories = (courses=[]) => {
+    const lookup = {};
+    courses.forEach(courseObj=>{
+        const {category} = courseObj;
+        // if(lookup[category] === undefined)
+        if(!lookup[category]){
+            lookup[category] = 1;
+        }else{
+            lookup[category]++;
+        }
+    })
+    //at this point, lookup will look something like this: { 'Software Engineering': 3, Psychology: 3, Finance: 1 }
+    //now we will create the array of objects using the lookup data
+    const result = [];
+    for(let categoryNameKey in lookup){
+        const obj = { name: categoryNameKey, count: lookup[categoryNameKey] };
+        result.push(obj)
+    }
+
+    //sort the result based on the count
+    result.sort((elementA, elementB)=>{
+        return elementB.count - elementA.count;
+    })
+    return result.slice(0,2);
+    // console.log(lookup)
 };
 
-// console.log(getMostCommonCategories(courses));
+console.log(getMostCommonCategories(courses));
 
 /* 
 13. Get most popular courses- find the top 3 largest courses based on roster size
