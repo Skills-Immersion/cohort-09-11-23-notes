@@ -409,7 +409,6 @@ const getMostCommonCategories = (courses=[]) => {
         const obj = { name: categoryNameKey, count: lookup[categoryNameKey] };
         result.push(obj)
     }
-
     //sort the result based on the count
     result.sort((elementA, elementB)=>{
         return elementB.count - elementA.count;
