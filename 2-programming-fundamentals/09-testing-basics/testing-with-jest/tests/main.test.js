@@ -1,5 +1,5 @@
 const {getLowRatedArtists, getAverageRating, getRatingOfLowestRatedArtist} = require("../src/main")
-const expect = require("chai").expect;
+// const expect = require("chai").expect;
 
 
 const artists = [
@@ -24,7 +24,8 @@ describe("getAverageRating()", ()=>{
     const expected = 8.36;
 
     //assert that the actual needs to equal to the expected
-    expect(actualOutput).to.equal(expected)
+    // expect(actualOutput).to.equal(expected)
+    expect(actualOutput).toBe(expected);
   })
 
   //Edge case - if some rating properties are missing, it should default those missing ratings to 0 and still output a number
@@ -37,14 +38,14 @@ describe("getAverageRating()", ()=>{
     const actual = getAverageRating(incompleteArtists);
     const expected = 6.00;
 
-    expect(actual).to.equal(expected);
+    expect(actual).toBe(expected);
   })
   //edge case - if there are no artists provided, it should return null
   it("edge case - if there are no artists provided, it should return null", ()=>{
     const actual = getAverageRating()
     const expected = null;
 
-    expect(actual).to.equal(expected)
+    expect(actual).toBe(expected)
   })
 })
 
@@ -56,7 +57,7 @@ describe("getRatingOfLowestRatedArtist()", ()=>{
     //2. have an expected value that we expect the function to output
     const expected = 6.25;
     //3. use chai to assert that the actual is equal to the expected
-    expect(actual).to.equal(expected);
+    expect(actual).toBe(expected);
   })
   //edge case - gives back null if no artists are provided
   it("edge case - gives back null if no artists are provided", ()=>{
@@ -65,7 +66,7 @@ describe("getRatingOfLowestRatedArtist()", ()=>{
     //2. have an expected value that we expect the function to output
     const expected = null;
     //3. use chai to assert that the actual is equal to the expected
-    expect(actual).to.equal(expected);
+    expect(actual).toBe(expected);
   })
 })
 
@@ -83,7 +84,7 @@ describe("getLowRatedArtists()", ()=>{
       }
     ]
     //3. use chai to assert that the actual is equal to the expected
-    expect(actual).to.eql(expected);
+    expect(actual).toEqual(expected);
   })
 
   //it should give back an array if artists and a rating are provided
@@ -93,7 +94,9 @@ describe("getLowRatedArtists()", ()=>{
      //2. have an expected value that we expect the function to output
     
      //3. use chai to assert that the actual is equal to the expected
-     expect(actual).to.be.an("array");
+    //  expect(actual).to.be.an("array");
+    expect(actual).toBeInstanceOf(Array);
+    expect(Array.isArray(actual)).toBe(true);
   })
   //it should give back null if artists are empty or rating is not provided
   it("it should give back null if artists are empty or rating is not provided", ()=>{
@@ -103,6 +106,6 @@ describe("getLowRatedArtists()", ()=>{
    
     //3. use chai to assert that the actual is equal to the expected
     // expect(actual).to.equal(null);
-    expect(actual).to.be.null;
+    expect(actual).toBeNull();
  })
 })
