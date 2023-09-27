@@ -20,7 +20,6 @@ function getPokemon(){
   console.log("3. texting a friend while waiting");
   console.log("4. loading up other parts of the page while waiting");
 
-
 }
 
 // getPokemon()
