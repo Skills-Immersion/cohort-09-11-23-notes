@@ -44,10 +44,24 @@
     },
     {
       "name": "Gavin",
-      "team": "Knicks",
-      "number_championships": 2,
-      "state": "New York",
+      "team": "Celtics",
+      "number_championships": 30,
+      "state": "Boston",
       "id": "ZWMTa7P"
+    },
+    {
+      "name": "Lebron James",
+      "team": "Lakers",
+      "number_championships": 4,
+      "state": "California",
+      "id": "znU7KeT"
+    },
+    {
+      "name": "Chris Paul",
+      "team": "Lakers",
+      "number_championships": 4,
+      "state": "California",
+      "id": "z33oYeb"
     }
   ]
 }
