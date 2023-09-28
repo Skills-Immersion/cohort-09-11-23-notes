@@ -52,7 +52,9 @@ function updateIfExists(id, body) {
       console.log("successfully updated player")
       console.log(response.data)
       return response.data;
+      // return axios.get(/*some code here*/)
     })
+    
     .catch((err)=>{
       console.log("in the .catch()")
       console.log(err.message)
