@@ -2,10 +2,10 @@
   "constellations": [
     {
       "id": "UEUrlfX",
-      "name": "Columba",
-      "meaning": "Dove",
-      "starsWithPlanets": 3,
-      "quadrant": "SQ1"
+      "name": "Column",
+      "meaning": "Row",
+      "starsWithPlanets": 5,
+      "quadrant": "CSS"
     },
     {
       "id": "32TN5F8",

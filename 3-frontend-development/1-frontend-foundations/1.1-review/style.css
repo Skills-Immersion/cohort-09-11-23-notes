@@ -1,0 +1,46 @@
+/* Tag Selector */
+p{
+  background-color:blue;
+  font-style:italic;
+  color: red;
+  font-size: 20px;
+}
+
+/* class selector - uses a "."
+
+- Used to select multiple elements in a similar style
+
+*/
+.cooler-style{
+  text-decoration: underline;
+  font-size: 12px;
+  font-family:cursive;
+  color: black;
+  border: 1px solid green;
+}
+
+/* id selector - uses a "#" 
+
+- only to be used for one element
+*/
+#bigWeightBigTime{
+  color: pink;
+  font-size: 36px;
+  background-color: aqua;
+}
+
+.second-div{
+  padding: 50px;
+}
+
+div{
+  background-color: red;
+  color: white;
+  border: 3px solid blue;
+  /* padding: 50px; */
+  padding: 50px 10px 100px 0px;
+  /* padding-top: 50px;
+  padding-right: 10px; */
+
+  margin: 30px;
+}
