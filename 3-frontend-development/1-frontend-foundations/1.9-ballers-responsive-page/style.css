@@ -31,7 +31,7 @@ section.primary-bg {
 }
 
 main img {
-  width: 100px;
+  width: 100%;
 }
 
 
@@ -46,7 +46,7 @@ header {
 
 .brand-name {
   font-family: cursive;
-  font-size: 72px;
+  font-size: 92px;
   color: #fff;
 }
 
@@ -70,7 +70,7 @@ header nav ul li a:hover {
 }
 
 /* -------  Search Form ------- */
-/* form {
+form {
   border: 2px double rgb(73, 65, 65);
   padding: 10px;
 }
@@ -92,7 +92,7 @@ form button {
   font-size: 24px;
   padding: 15px;
   width: 100%;
-} */
+}
 
 /* -------  Footer ------- */
 
@@ -115,11 +115,115 @@ ul#menu{
 }
 
 
-/* -------  Media Query ------- */
+form div {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+img{
+  width: 100%;
+}
+
+
+
+/* -------  Media Query Extra small mobile (less than 350px)------- */
+@media all and (max-width:350px){
+ .brand-name{
+  font-size: 60px;
+ }
+
+ ul#menu {
+  font-size: 8px;
+ }
+
+ form div label {
+  font-size: 13px;
+  }
+}
+
+/* -------  Media Query Extra small mobile (more than 350px)------- */
+@media all and (min-width:351px){
+  .brand-name{
+   font-size: 72px;
+  }
+ 
+  ul#menu {
+   font-size: 12px;
+  }
+ }
+
+
+/* -------  Media Query Desktop------- */
 @media all and (min-width: 768px){
   header{
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
+  form div {
+    flex-direction: column;
+    /* border: 1px solid black; */
+    width: 15%;
+  }
+
+  form{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  form button {
+    width: 20%;
+  }
+
+  form div input, form div select {
+    width: 95%;
+    font-size: 90%;
+  }
+
+  .row{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    /* border: 1px solid black; */
+  }
+
+  .row img {
+    /* flex: 1; */
+    width: 25%;
+    /* margin-right: 10px; */
+  }
+
+  .row p {
+    /* flex: 2; */
+    width: 50%;
+  }
+
+  #mount-rushmore>div{
+    display: flex;
+    gap: 10px;
+  }
+
+  #mount-rushmore>div>div{
+    flex: 1;
+    /* width: 50%; */
+  }
+
+  #mount-rushmore img{
+    height: 400px;
+  }
+
+  #handling{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #handling div, #handling img{
+    width: 50%;
+  }
+
+  
 }
