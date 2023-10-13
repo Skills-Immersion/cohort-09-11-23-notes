@@ -1,5 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap");
 
+.fav-button{
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  cursor: pointer;
+  background: yellow;
+  border-radius: 4px;
+  transition: all 0.5s;
+  background-color: yellow;
+  border: 2px solid blue;
+}
+
+.sorter {
+  width: 90%;
+  margin: 0 auto;
+  padding: 6px;
+}
+
+
 * {
   box-sizing: border-box;
 }
