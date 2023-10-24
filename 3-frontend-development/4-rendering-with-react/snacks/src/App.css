@@ -1,0 +1,12 @@
+td,
+th {
+  border: 1px solid black;
+}
+
+* {
+  font-family: 'Bona Nova', serif;
+}
+
+.header {
+  font-family: 'Playpen Sans', cursive;
+}

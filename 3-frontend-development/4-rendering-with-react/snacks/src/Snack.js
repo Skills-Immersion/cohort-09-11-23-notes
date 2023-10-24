@@ -1,8 +1,9 @@
 import React from 'react';
+import './Snack.css';
 
 function Snack({ snack = { name: 'default snack', price: 0, description: '' } }) {
   return <div className="card">
-    <h3><button>Add to Cart</button>{snack.name} ${snack.price}</h3>
+    <h3><button className="add-to-cart">+</button>{snack.name} ${snack.price}</h3>
     {/* conditional rendering */}
     {/* What ? True : False */}
 
