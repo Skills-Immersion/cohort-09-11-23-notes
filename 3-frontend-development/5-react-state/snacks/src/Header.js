@@ -1,10 +1,9 @@
 // step 1: import React
-import React, { useState } from 'react';
+import React from 'react';
 
 // step 2: write the component/function
-function Header() {
-  // set up a state variable for numberOfClicks
-  const [numberOfClicks, setNumberOfClicks] = useState(0);
+function Header({ numberOfClicks, setNumberOfClicks }) {
+
   // let numberOfClicks = 0;
   const clickLogger = function () {
     // numberOfClicks = numberOfClicks + 1;

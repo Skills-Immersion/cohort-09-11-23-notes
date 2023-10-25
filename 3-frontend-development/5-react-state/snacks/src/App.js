@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import SnackLi from './SnackLi';
@@ -24,11 +24,13 @@ function App() {
     }
   ];
 
+  // set up a state variable for numberOfClicks
+  const [numberOfClicks, setNumberOfClicks] = useState(0);
   return (
     <div className="container">
-      <Header />
+      <Header numberOfClicks={numberOfClicks} setNumberOfClicks={setNumberOfClicks} />
       {/* passing in our props - setting the value of the snacks prop to be the value of the variable, tastySnacks */}
-      <Main snacks={tastySnacks} />
+      <Main snacks={tastySnacks} numberOfClicks={numberOfClicks} />
       {/* extra practice with map, specifically for lists and tables */}
       <ul>
         {tastySnacks.map(tastySnack => <SnackLi potato={tastySnack} key={tastySnack.name} />)}

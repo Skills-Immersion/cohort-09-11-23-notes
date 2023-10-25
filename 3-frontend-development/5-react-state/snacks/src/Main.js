@@ -4,12 +4,12 @@ import Snack from './Snack';
 // props is the parameters that we get from the parent component
 // we usually immediately destructure props to access each key/value pair
 // function Main(props) {
-function Main({ snacks }) {
+function Main({ snacks, numberOfClicks }) {
   function snackify(s) {
     return <Snack snack={s} />
   }
   return <main>
-    <h2>Today's Menu</h2>
+    <h2>Today's Menu {numberOfClicks}</h2>
     {/* <Snack snack={snacks[0]} />
     <Snack snack={snacks[1]} /> */}
     {snacks.map(snack => `Snack named ${snack.name} costs ${snack.price}`)}
