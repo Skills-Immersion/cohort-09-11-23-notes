@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Snack.css';
 
 function Snack({ snack = { name: 'default snack', price: 0, description: '' } }) {
+  const [addedToCart, setAddedToCart] = useState(false);
   return <div className="card">
-    <h3><button className="add-to-cart">+</button>{snack.name} ${snack.price}</h3>
+    <h3>
+      <button className="add-to-cart" onClick={() => setAddedToCart(!addedToCart)}>
+        {addedToCart ? '-' : '+'}
+      </button>
+      {addedToCart && 'Added to cart!'} {snack.name} ${snack.price}
+    </h3>
     {/* conditional rendering */}
     {/* What ? True : False */}
 
