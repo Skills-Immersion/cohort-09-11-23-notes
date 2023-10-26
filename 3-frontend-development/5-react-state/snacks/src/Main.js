@@ -5,9 +5,6 @@ import Snack from './Snack';
 // we usually immediately destructure props to access each key/value pair
 // function Main(props) {
 function Main({ snacks, numberOfClicks, setFavorite }) {
-  function snackify(s) {
-    return <Snack snack={s} />
-  }
   // cart is an array
   const [cart, setCart] = useState([]);
   // helper function that will just add something to the cart array

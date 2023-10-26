@@ -9,4 +9,5 @@ th {
 
 .header {
   font-family: 'Playpen Sans', cursive;
+  display: inline;
 }

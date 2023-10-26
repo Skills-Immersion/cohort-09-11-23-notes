@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import SnackLi from './SnackLi';
+import AddSnackForm from './AddSnackForm';
 
 function App() {
   const [tastySnacks, setTastySnacks] = useState([
@@ -26,7 +27,11 @@ function App() {
       favorite: false
     }
   ]);
-  
+  // helper function to add a new snack
+  function addSnack(newSnack) {
+    setTastySnacks([...tastySnacks, newSnack])
+  }
+
   // sets the snack with that name to be a favorite
   function setFavorite(nameOfSnack) {
     // map over the array of tasty snacks
@@ -46,6 +51,7 @@ function App() {
     <div className="container">
       <Header numberOfClicks={numberOfClicks} setNumberOfClicks={setNumberOfClicks} />
       {/* passing in our props - setting the value of the snacks prop to be the value of the variable, tastySnacks */}
+      <AddSnackForm addSnack={addSnack} />
       <Main snacks={tastySnacks} numberOfClicks={numberOfClicks} setFavorite={setFavorite} />
       {/* extra practice with map, specifically for lists and tables */}
       <ul>

@@ -21,7 +21,7 @@ function Snack({ snack = { name: 'default snack', price: 0, description: '' }, a
       </button>
       {addedToCart && 'Added to cart!'} {snack.favorite && '*~*~*~'}{snack.name}{snack.favorite && '*~*~*~'} ${snack.price}
     </h3>
-    <button onClick={() => setFavorite(snack.name)}>Favorite</button>
+    {!snack.favorite && <button onClick={() => setFavorite(snack.name)}>Favorite</button>}
     {/* conditional rendering */}
     {/* What ? True : False */}
 
