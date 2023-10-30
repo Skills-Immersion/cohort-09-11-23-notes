@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Cast from './Cast'
 import Show from './Show';
 
 function App() {
   const [numClicks, setNumClicks] = useState(0);
   const [numMouseover, setNumMouseover] = useState(0);
 
+
+  const [currentShow, setCurrentShow] = useState({});
   // set this up with the same datatype that we expect back from the API
   const [shows, setShows] = useState([])
 
@@ -49,10 +52,15 @@ function App() {
   return (
     <div className="container">
       <h1 onClick={() => setNumClicks(numClicks + 1)} onMouseOver={() => setNumMouseover(numMouseover + 1)}>TV Showy {numMouseover} {numClicks}</h1>
-      <ul>
-
-        {shows.map(potato => <Show show={potato} key={potato.id} />)}
-      </ul>
+      <div className="main">
+        <div className="shows">
+          {shows.map(potato => <Show show={potato} key={potato.id} setCurrentShow={setCurrentShow} />)}
+        </div>
+        <div className="cast">
+          {/* check if the current show exists (i.e. that we have clicked on something), and if we have, show the name of the show */}
+          {currentShow.id && <Cast show={currentShow} />}
+        </div>
+      </div>
     </div>
   );
 }

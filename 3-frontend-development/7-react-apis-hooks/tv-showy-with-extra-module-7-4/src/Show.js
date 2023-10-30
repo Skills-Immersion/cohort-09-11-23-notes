@@ -1,10 +1,8 @@
 import React from 'react';
 
-function Show({ show }) {
+function Show({ show, setCurrentShow }) {
   return <div>
-    <h2>{show.name}</h2>
-    <img src={show.image.medium} />
-    <p>Average rating: {show.rating.average}</p>
+    <h2 onClick={() => setCurrentShow(show)}>{show.name}</h2>
   </div>
 }
 
