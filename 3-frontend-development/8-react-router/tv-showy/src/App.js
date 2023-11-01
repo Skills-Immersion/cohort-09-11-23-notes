@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Show from './Show';
+import Show from './Shows/Show';
 import SearchPage from './SearchPage';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import Hello from './Hello';
+import ShowDetailPage from './Shows/ShowDetailPage';
 // import { Route } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
@@ -56,18 +58,27 @@ function App() {
         <h1 onClick={() => setNumClicks(numClicks + 1)} onMouseOver={() => setNumMouseover(numMouseover + 1)}>TV Showy {numMouseover} {numClicks}</h1>
         {/* <a href="/">Home</a>
         <a href="/search">Search</a> */}
-        <Link to="/">Home</Link>
-        <Link to="/search">Search</Link>
+        <Link to="/" className="btn btn-primary">Home</Link>
+        <Link to="/search" className="btn btn-secondary">Search</Link>
         {/* Route acts like a conditional - now, the SearchPage will ONLY render on a path that matches "/search" */}
         <Switch>
-          <Route path="/search">
-            <SearchPage />
-          </Route>
+          {/* the colon in front makes that segment a parameter */}
           <Route path="/" exact={true}>
             <ul>
               {shows.map(potato => <Show show={potato} key={potato.id} />)}
             </ul>
           </Route>
+          <Route path="/hello/:firstName/:lastName">
+            <Hello />
+          </Route>
+
+          <Route path="/movingpictures/:id">
+            <ShowDetailPage />
+          </Route>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+
           <Route>
             <h4>Sorry, route not found. Please use the links above to visit the home or search pages.</h4>
           </Route>

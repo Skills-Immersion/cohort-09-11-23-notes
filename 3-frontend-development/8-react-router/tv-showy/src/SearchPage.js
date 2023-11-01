@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Show from './Show';
+import Show from './Shows/Show';
 
 function SearchPage() {
   // user is gonna type in our input (and we keep track in a state var of what they've typed)
