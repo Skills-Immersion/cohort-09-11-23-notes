@@ -72,7 +72,7 @@ function App() {
             <Hello />
           </Route>
 
-          <Route path="/movingpictures/:id">
+          <Route path="/shows/:id">
             <ShowDetailPage />
           </Route>
           <Route path="/search">
