@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CreatureForm from './CreatureForm';
 // similarities: 
 // all the labels, all the inputs
 
@@ -30,17 +31,7 @@ function AddACreature({ addCreature }) {
     addCreature(formData);
   }
   return <div>
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <input id="name" name="name" type="text" onChange={handleChange} value={formData.name} />
-      <label htmlFor="imageUrl">Image URL</label>
-      <input id="imageUrl" name="imageUrl" type="url" onChange={handleChange} value={formData.imageUrl} />
-      <label htmlFor="abilities">Abilities</label>
-      <input id="abilities" name="abilities" type="text" onChange={handleChange} value={formData.abilities} />
-      <label htmlFor="type">Type</label>
-      <input id="type" name="type" type="text" onChange={handleChange} value={formData.type} />
-      <input type="submit" />
-    </form>
+    <CreatureForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
   </div>
 }
 
