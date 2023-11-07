@@ -51,6 +51,12 @@ app.post('/creatures', (req, res, next) => {
   res.status(201).send(newCreature);
 })
 
+app.put('/creatures/:id', (req, res, next) => {
+  let idx = creatures.findIndex(c => c.id === Number(req.params.id))
+  if (idx > -1) creatures.splice(idx, 1, { ...req.body, id: Number(req.params.id) });
+  res.send(creatures[idx]);
+})
+
 app.delete('/creatures/:id', (req, res, next) => {
   let idx = creatures.findIndex(c => c.id === Number(req.params.id))
   creatures.splice(idx, 1);
