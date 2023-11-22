@@ -16,11 +16,11 @@ app.get('/games', (req, res, next) => {
   res.send({ data: games })
 })
 
-// read
-app.get('/games/:id', (req, res, next) => {
+function validateGameExists(req, res, next) {
   let gameWeAreLookingFor = games.find(g => g.id === Number(req.params.id));
   if (gameWeAreLookingFor) {
-    res.send({ data: gameWeAreLookingFor })
+    // good
+    next()
   } else {
     // we did not find a game
     // we should send a 404
@@ -29,6 +29,12 @@ app.get('/games/:id', (req, res, next) => {
       message: `game with id ${req.params.id} not found`
     })
   }
+}
+
+// read
+app.get('/games/:id', validateGameExists, (req, res, next) => {
+  let gameWeAreLookingFor = games.find(g => g.id === Number(req.params.id));
+  res.send({ data: gameWeAreLookingFor })
 })
 
 // create
@@ -47,6 +53,16 @@ app.post('/games', (req, res, next) => {
   games.push(newGame);
   // send back our response
   res.status(201).send({ data: newGame });
+})
+
+// destroy
+app.delete('/games/:id', validateGameExists, (req, res, next) => {
+  // find what we're trying to delete
+  let index = games.findIndex(g => g.id === Number(req.params.id));
+  // delete it
+  games.splice(index, 1);
+  // send our 204 no content response
+  res.status(204).send();
 })
 
 // error handling
