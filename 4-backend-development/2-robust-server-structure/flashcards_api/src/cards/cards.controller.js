@@ -4,9 +4,19 @@ const cuid = require('cuid');
 const { cards, decks } = require("../dataStore");
 const logger = require('../utils/logger');
 
-const list = (_req, res, _next) => {
-  res
-    .json({ data: cards });
+// option 2 for nested routes: this function now needs to handle the nested case and the not-nested case
+const list = (req, res, _next) => {
+  if (req.params.deckId) {
+    // we're in the nested case
+    // need to do some filtering
+    let cardsForDeck = cards.filter(c => c.deckId === req.params.deckId);
+    res.json({ data: cardsForDeck })
+  } else {
+    // not a nested route, just send back all of the cards
+    res
+      .json({ data: cards });
+  }
+
 };
 
 function validateReqBodyData(req, res, next) {
@@ -72,25 +82,31 @@ const create = (req, res, next) => {
 
 function validateCardExists(req, res, next) {
   const { cardId } = req.params;
-  const card = cards.find(c => c.id === cardId);
+  const cardIndex = cards.findIndex(c => c.id === cardId);
   // make sure we found a card
-  if (!card) {
+  if (cardIndex < 0) {
     const message = `Card with id ${cardId} not found.`;
     return next({ status: 404, message });
   } else {
+    // save the index so it can be used in the destroy function
+    // and the card so it can be used in the read function
+    res.locals.cardIndex = cardIndex;
+    res.locals.card = cards[cardIndex];
     next();
   }
 }
+
 const read = (req, res, next) => {
-  const { cardId } = req.params;
-  const card = cards.find(c => c.id === cardId);
+  // const { cardId } = req.params;
+  // const card = cards.find(c => c.id === cardId);
+  const { card } = res.locals;
   res.json({ data: card });
 };
 
 const destroy = (req, res, next) => {
-  const { cardId } = req.params;
-  const cardIndex = cards.findIndex(c => c.id === cardId);
-
+  // const { cardId } = req.params;
+  // const cardIndex = cards.findIndex(c => c.id === cardId);
+  const { cardIndex } = res.locals;
   cards.splice(cardIndex, 1);
   res
     .status(204)

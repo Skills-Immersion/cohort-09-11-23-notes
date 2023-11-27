@@ -42,16 +42,21 @@ const create = (req, res, next) => {
     .json({ data: deck });
 }
 
-const read = (req, res, next) => {
+function validateDeckExists(req, res, next) {
   const { deckId } = req.params;
   const deck = decks.find(d => d.id === deckId);
-
-  // make sure we found a list
-  if (!deck) {
-    const message = `Deck with id ${deckId} not found.`;
-    return next({ status: 404, message });
+  if (deck) {
+    res.locals.deck = deck;
+    next();
+  } else {
+    next({
+      status: 404,
+      message: `Deck with id ${deckId} not found.`
+    })
   }
-
+}
+const read = (req, res, next) => {
+  const { deck } = res.locals;
   res.json({ data: deck });
 };
 
@@ -86,9 +91,17 @@ const destroy = (req, res, next) => {
     .end();
 }
 
+// option 1 for nested routes: a standalone controller function
+function listCards(req, res, next) {
+  const { deckId } = req.params;
+  const cardsForDeck = cards.filter(c => c.deckId === deckId);
+  res.json({ data: cardsForDeck });
+}
+
 module.exports = {
   list,
   create,
-  read,
-  destroy
+  read: [validateDeckExists, read],
+  destroy,
+  listCards: [validateDeckExists, listCards]
 }

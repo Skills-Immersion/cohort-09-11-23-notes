@@ -9,11 +9,6 @@ const decksRouter = require('./decks/decks.router')
 const app = express();
 
 const logger = require('./utils/logger');
-
-// Import data store
-const { cards, decks } = require("./dataStore");
-
-
 // -- PIPELINE STARTS HERE ---
 
 // Middleware
