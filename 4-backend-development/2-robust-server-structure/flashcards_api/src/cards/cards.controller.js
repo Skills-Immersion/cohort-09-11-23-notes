@@ -9,6 +9,15 @@ const list = (_req, res, _next) => {
     .json({ data: cards });
 };
 
+function validateReqBodyData(req, res, next) {
+  const { data } = req.body;
+  if (!data) {
+    const message = `Body must have 'data' key`;
+    return next({ status: 400, message });
+  } else {
+    return next();
+  }
+}
 
 function validatorFor(property) {
   return function (req, res, next) {
@@ -17,7 +26,7 @@ function validatorFor(property) {
     } else {
       next({
         status: 400,
-        message: `you forgot the ${property} field`
+        message: `'${property}' is required`
       })
     }
   }
@@ -34,23 +43,8 @@ function validatorFor(property) {
 //   }
 // }
 const create = (req, res, next) => {
-  const { data } = req.body;
-  if (!data) {
-    const message = `Body must have 'data' key`;
-    return next({ status: 400, message });
-  }
 
-  const { front, back, deckId } = data;
-
-  // Validate required fields are present
-  const requiredFields = ["front", "back", "deckId"];
-  for (const field of requiredFields) {
-    if (!data[field]) {
-      const message = `'${field}' is required`;
-      return next({ status: 400, message });
-    }
-  }
-
+  const { front, back, deckId } = req.body.data;
   // Validate deck exists
   const deck = decks.find(d => d.id === deckId);
   if (!deck) {
@@ -107,6 +101,7 @@ const destroy = (req, res, next) => {
 module.exports = {
   list,
   create: [
+    validateReqBodyData,
     validatorFor('front'),
     validatorFor('back'),
     validatorFor('deckId'),
