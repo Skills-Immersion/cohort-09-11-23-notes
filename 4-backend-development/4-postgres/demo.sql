@@ -1,3 +1,4 @@
+DROP TABLE items;
 CREATE TABLE items (
 --  for each column, we're giving
 --  col_name DATATYPE [optional: constraints]
@@ -8,7 +9,9 @@ CREATE TABLE items (
 	created_at TIMESTAMPTZ DEFAULT now()
 );
 
-DROP TABLE items;
+
+
+-- create is with INSERT
 
 INSERT INTO items (item_name, description, completed) VALUES 
 	('pillow', 'soft and fluffy', true);
@@ -22,3 +25,43 @@ INSERT INTO items(item_name, description) VALUES
 	('pencils', 'writing is important');
 
 
+-- read is with the SELECT keyword in SQL
+
+SELECT * FROM items;
+-- limit the columns that come back
+SELECT id, description FROM items;
+-- limit the rows that come back
+SELECT * FROM items WHERE id > 2;
+-- or, limit both rows AND columns
+-- give me just the description of anything whose item_name is 'fan'
+SELECT description FROM items WHERE item_name = 'fan';
+
+SELECT * FROM items LIMIT 2;
+SELECT * FROM items ORDER BY item_name;
+
+-- MUST use a WHERE clause for both UPDATE and DELETE or else you will update/delete everything and you will be sad
+UPDATE items SET description = 'holds water' WHERE item_name = 'water bottle';
+
+DELETE FROM items WHERE completed = true;
+
+SELECT * FROM products WHERE aisle = 'coffee';
+
+-- when you want to get each option just once, DISTINCT
+SELECT DISTINCT aisle FROM products ORDER BY aisle;
+
+-- when you want to count things, COUNT
+SELECT COUNT(DISTINCT aisle) FROM products;
+
+SELECT SUM(price) FROM products WHERE aisle = 'coffee';
+
+select * from products where aisle = 'tea' and price > 30 and price < 40;
+
+-- make them herbal
+select * from products where aisle = 'tea' and price > 30 and price < 40 AND product_name ILIKE '%herbal%'; -- hErBaL
+
+SELECT * FROM products WHERE department = 'pets' ORDER BY price DESC;
+
+-- group by does bucketing - especially useful for counting things by bucket
+SELECT COUNT(*), department FROM products GROUP BY department;
+
+SELECT * FROM products WHERE product_name ILIKE '%canned%' AND aisle NOT ILIKE '%canned%'
