@@ -54,3 +54,39 @@ SELECT * FROM checkouts JOIN books ON checkouts.book_id = books.book_id;
 -- to find the checkout date of self-help books, do the join to get info from both tables
 
 SELECT checkout_date FROM checkouts JOIN books ON checkouts.book_id = books.book_id WHERE genre = 'Self-help';
+
+-- let's turn this into a many-to-many relationship
+-- a book can be checked out by many people! 
+-- books are connected to checkouts, which are in turn connected to people
+
+CREATE TABLE patrons(
+	account_number INTEGER PRIMARY KEY,
+	patron_name VARCHAR(255)
+);
+
+ALTER TABLE checkouts DROP COLUMN account_number;
+
+ALTER TABLE checkouts ADD patron INTEGER REFERENCES patrons(account_number);
+
+INSERT INTO patrons(account_number, patron_name) VALUES (789, 'Mr Bill'), (32416, 'Moleman'), (5496, 'Timmy');
+
+INSERT INTO books(title, author, genre) VALUES('intro to flying', 'jimmy', 'how to');
+
+INSERT INTO checkouts(book_id, patron, checkout_date, due_date) VALUES(4, 5496, '2023-11-30', '2023-12-30');
+UPDATE checkouts SET patron = 789 WHERE patron IS NULL;
+
+SELECT * FROM patrons
+	JOIN checkouts ON patrons.account_number = checkouts.patron
+	JOIN books ON checkouts.book_id = books.book_id 
+	ORDER BY due_date;
+	
+-- by default, all joins are inner joins - they only get the overlapping data
+
+SELECT * FROM checkouts FULL JOIN patrons ON patrons.account_number = checkouts.patron ;
+UPDATE checkouts SET patron = NULL WHERE checkout_id = 5;
+
+INSERT INTO books(title, author, genre) VALUES ('Twilight', 'Stephanie Meyer', 'teen lit from the 2000s');
+SELECT * FROM patrons
+	FULL JOIN checkouts ON patrons.account_number = checkouts.patron
+	FULL JOIN books ON checkouts.book_id = books.book_id 
+	ORDER BY due_date;
