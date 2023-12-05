@@ -9,9 +9,9 @@ app.use(express.json());
 // app.use(cors())
 
 app.use("/articles", articlesRouter)
-// app.use("/products", productsRouter);
-// app.use("/categories", categoriesRouter);
-// app.use("/suppliers", suppliersRouter);
+app.use("/products", productsRouter);
+app.use("/categories", categoriesRouter);
+app.use("/suppliers", suppliersRouter);
 
 // Not found handler
 app.use((req, res, next) => {
