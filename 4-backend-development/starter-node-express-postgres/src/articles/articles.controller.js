@@ -6,12 +6,14 @@ const {
     destroyArticle
 } = require("./articles.service");
 
-
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
 
 async function list(req , res , _next) {
     let data = await getAllArticles();
     res.json({data});
 }
+
+// const wrappedListFunction = asyncErrorBoundary(list)
 
 async function create(req , res , _next) {
     let data = await createArticle(req.body);
@@ -34,7 +36,7 @@ async function read(req , res , _next) {
 }
 
 module.exports = {
-    list,
+    list: asyncErrorBoundary(list),
     create,
     read,
     update,
