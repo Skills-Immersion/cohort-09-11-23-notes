@@ -1,5 +1,5 @@
 const knex = require("../db/connection");
-const { mapProperties } = require("../utils/mapProperties")
+const { mapProperties, transformPriceToNum } = require("../utils/mapProperties")
 
 const addSupplier = mapProperties({
     supplier_id: "supplier.supplier_id",
@@ -37,6 +37,7 @@ function listPriceSummaryService() {
         .max("product_price as max_price")
         .avg("product_price as avg_price")
         .groupBy("supplier_id")
+        .then( resultArray => resultArray.map(transformPriceToNum) )
 }
 
 module.exports = {
