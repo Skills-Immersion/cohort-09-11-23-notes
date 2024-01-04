@@ -16,4 +16,23 @@ function arrayDoublerRecursively(arr, result = []) {
     return arrayDoublerRecursively( arr.slice(1) , result)
 }
 
-arrayDoublerRecursively([1, 2, 3])//  -> [2, 4, 6]
+console.log(arrayDoublerRecursively([1, 2, 3]));//  -> [2, 4, 6]
+
+function fibonacciIterative(n) {
+    if (n <= 1) return n;
+
+    let prev = 0, current = 1;
+    for (let i = 2; i <= n; i++) {
+        let next = prev + current;
+        prev = current;
+        current = next;
+    }
+    return current;
+}
+//  1 1 2 3 5 8
+function fibonacciRecursive(n) {
+    if (n <= 1) return n;
+    return fibonacciRecursive(n-1) + fibonacciRecursive(n-2)
+}
+
+console.log(fibonacciRecursive(50))
