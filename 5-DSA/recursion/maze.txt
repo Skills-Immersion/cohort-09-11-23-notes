@@ -1,0 +1,9 @@
+base cases
+    did we reach the end
+    are we in bounds
+    is this a valid space (have we been before)
+
+recursive case
+    establish our movement  U R D L
+    when we move mark our previous location
+    in case of a backtrack reset a cell
