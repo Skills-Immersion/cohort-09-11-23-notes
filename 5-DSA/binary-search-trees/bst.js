@@ -1,3 +1,5 @@
+const Queue = require("../stacks-queues/queues")
+
 class BST {
     constructor(key = null, value = null, parent = null) {
         this.key = key;
@@ -115,6 +117,73 @@ class BST {
             return this; //return me that node
         }
         return this.right._findMax(); // keep traversing left recursively
+    }
+
+    //pre order we push the root node first
+    dfsPreOrder(values = []) {
+        //process
+        values.push(this.value);
+        //step left recursively
+        if (this.left) {
+            this.left.dfsPreOrder(values);
+        }
+        //step right recursively
+        if (this.right) {
+            this.right.dfsPreOrder(values);
+        }
+        return values
+    }
+
+    //post order we push the root node at the end
+    dfsPostOrder(values = []) {
+        //step left recursively
+        if (this.left) {
+            this.left.dfsPostOrder(values);
+        }
+        //step right recursively
+        if (this.right) {
+            this.right.dfsPostOrder(values);
+        }
+        //process
+        values.push(this.value);
+        return values
+    }
+
+    //traversal that gives us our tree sorted
+    dfsInOrder(values = []) {
+        //step left recursively
+        if (this.left) {
+            this.left.dfsInOrder(values);
+        }
+        //process
+        values.push(this.value);
+        //step right recursively
+        if (this.right) {
+            this.right.dfsInOrder(values);
+        }
+        return values
+    }
+
+    breadthFirstSearch(values = []) {
+        const queue = new Queue;
+        queue.enqueue(this);//put the root node into the Q
+        let nodeToBeChecked = this;
+
+        while ( nodeToBeChecked ) {
+            // process
+            values.push(nodeToBeChecked.value)
+            // check the left child and put in Q
+            if ( nodeToBeChecked.left ) {
+                queue.enqueue(nodeToBeChecked.left)
+            }
+            // check the right child and put in Q
+            if ( nodeToBeChecked.right ) {
+                queue.enqueue(nodeToBeChecked.right)
+            }
+            // move on to the next node
+            nodeToBeChecked = queue.dequeue();
+        }
+        return values;
     }
 }
 

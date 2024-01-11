@@ -35,3 +35,5 @@ class Queue {
         return dequeued; 
     }
 }
+
+module.exports = Queue;
